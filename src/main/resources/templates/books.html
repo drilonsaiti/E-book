@@ -31,11 +31,13 @@
     </div>
   </div>
 
-  <div itemscope itemtype="http://schema.org/Book" th:each="book : ${books}">
-    <a th:href="@{'/book/{bookName}' (bookName=${book.getNameForSPARQL()})}"><h4 itemprop="name" th:text="${book.bookName}" ></h4></a>
-    <a th:href="@{'/authors/{author}' (author=${book.getAuthorForSPARQL()})}">
-      <span itemprop="author" th:text="${book.authorLabel}"></span></a>
-    <p itemprop="genre" th:text="${book.link}"></p>
+  <div vocab="https://schema.org/">
+    <div typeof="Book" th:each="book : ${books}">
+      <a th:href="@{'/book/{bookName}' (bookName=${book.getNameForSPARQL()})}"><h4 property="name" th:text="${book.bookName}" ></h4></a>
+      <a th:href="@{'/authors/{author}' (author=${book.getAuthorForSPARQL()})}">
+        <span property="author"  th:text="${book.authorLabel}"></span></a>
+      <p property="genre" th:text="${book.link}"></p>
+    </div>
   </div>
 </div>
 

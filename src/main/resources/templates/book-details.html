@@ -23,15 +23,17 @@
 
 <br/>
 <div class="container mb-4" xmlns:th="http://www.thymeleaf.org">
+    <div vocab="https://schema.org/">
+    <div typeof="Book" th:each="book : ${books}">
+        <label>Name</label> <p property="name"  th:text="${book.getBookName()}"></p>
+        <label>Abstract</label> <p property="abstract" th:text="${book.getAbstracts()}"></p>
+        <label>Author name</label> <a  th:href="@{'/authors/{author}' (author=${book.getAuthorForSPARQL()})}">
+        <p property="author" th:text="${book.getAuthorName()}" ></p> </a>
+        <label>Genre</label> <p property="genre" th:text="${book.getGenreType()}"></p>
+        <label>Num pages</label> <p property="numberOfPages" th:text="${book.getNumPages()}"></p>
+        <label>Relase date</label> <p property="datePublished" th:text="${book.getRelaseDate()}"></p>
 
-    <div th:each="book : ${books}">
-        <label>Name</label> <p th:text="${book.getBookName()}"></p>
-        <label>Abstract</label> <p th:text="${book.getAbstracts()}"></p>
-        <label>Author name</label> <p th:text="${book.getAuthorName()}"></p>
-        <label>Genre</label> <p th:text="${book.getGenreType()}"></p>
-        <label>Num pages</label> <p th:text="${book.getNumPages()}"></p>
-        <label>Relase date</label> <p th:text="${book.getRelaseDate()}"></p>
-
+    </div>
     </div>
 </div>
 
