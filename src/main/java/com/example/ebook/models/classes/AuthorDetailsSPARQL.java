@@ -12,6 +12,7 @@ public class AuthorDetailsSPARQL {
 
     public String getQuery() {
         System.out.println("in class " + this.userSearch);
+        String dbr = "<http://dbpedia.org/resource/"+this.userSearch+">";
         String query =  "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
                 "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
                 "prefix dbo: <http://dbpedia.org/ontology/>"+
@@ -22,18 +23,18 @@ public class AuthorDetailsSPARQL {
                 "WHERE {" +
 
 
-                "dbr:"+this.userSearch+ " rdfs:label ?authorlabel. " +
+                dbr+ " rdfs:label ?authorName. " +
                 "OPTIONAL{" +
-                "dbr:"+this.userSearch+ " dbo:birthDate ?birthDate." +
+                dbr+ " dbo:birthDate ?birthDate." +
                 "}" +
                 "OPTIONAL{" +
-                "dbr:"+this.userSearch+ " dbo:thumbnail  ?linkPhoto." +
+                dbr+ " dbo:thumbnail  ?linkPhoto." +
                 "}" +
                 "OPTIONAL{" +
-                "dbr:"+this.userSearch+   " dbo:deathDate ?deathDate." +
+                dbr+   " dbo:deathDate ?deathDate." +
                 "}" +
                "OPTIONAL{     " +
-                "dbr:"+this.userSearch+
+                dbr+
                 "              dbp:birthPlace  ?birthPlace" +
                 "}"+
                 "OPTIONAL{" +
@@ -42,9 +43,11 @@ public class AuthorDetailsSPARQL {
                 "                                             geo:long ?long." +
                 "FILTER (lang(?birthPlaceName) = 'en')" +
                 "}"+
-                "dbr:"+this.userSearch+   " dbo:abstract ?abstract." +
-                "FILTER(lang(?authorlabel) = 'en')" +
+                dbr+   " dbo:abstract ?abstract." +
+
                 "FILTER(lang(?abstract) = 'en')"+
+                "FILTER(lang(?authorName) = 'en')"+
+                "BIND(STR(?authorName) as ?authorlabel)"+
                 "BIND (STR(?abstract)  AS ?abt). "+
                 "BIND (STR(?birthPlaceName)  AS ?birthCity). "+
                 "}";;

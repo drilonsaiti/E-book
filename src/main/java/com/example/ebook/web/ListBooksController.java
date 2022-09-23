@@ -18,7 +18,7 @@ public class ListBooksController {
         this.booksServices = booksServices;
     }
 
-    @GetMapping("/books")
+    @GetMapping({"/","/books"})
     public String getBooks(Model model){
         List<ListBook> books = this.booksServices.getBooks().stream().distinct().collect(Collectors.toList());
 
@@ -26,5 +26,16 @@ public class ListBooksController {
         model.addAttribute("books",books);
 
         return "books";
+    }
+
+    @GetMapping("search-book")
+    public String searchBook(Model model){
+        List<ListBook> books = this.booksServices.getBooks().stream()
+                .filter(b -> b.bookName.contains("Emma") || b.authorLabel.contains("Emma") || b.genre.contains("Emma")).toList();
+
+        model.addAttribute("size",books.size());
+        model.addAttribute("books",books);
+
+        return "profile";
     }
 }

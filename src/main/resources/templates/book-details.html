@@ -4,39 +4,92 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-</head>
-<body>
 
-<section class="about-banner relative" id="banners">
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row d-flex align-items-center justify-content-center">
-            <div class="about-content col-lg-12">
-                <h1 class="text-white">
-                    Books
-                </h1>
+</head>
+<body xmlns:th="http://www.thymeleaf.org" style="background-color: #eee;">
+
+
+<section >
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/books">Books</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Author</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container" th:each="book : ${books}" vocab="https://schema.org/" typeof="Book">
+
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0" >Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" property="name" th:text="${book.getBookName()}"></p>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Abstract</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" property="abstract" th:text="${book.getAbstracts()}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Author name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <a  th:href="@{'/authors/{author}' (author=${book.getAuthorForSPARQL()})}">
+                                    <p class=" mb-0" property="author" th:text="${book.getAuthorName()}" ></p> </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Genre</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" property="genre" th:text="${book.getGenreType()}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Number of pages</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" property="numberOfPages" th:text="${book.getNumPages()}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Release date</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" property="datePublished" th:text="${book.getRelaseDate()}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 </section>
-
-
-<br/>
-<div class="container mb-4" xmlns:th="http://www.thymeleaf.org">
-    <div vocab="https://schema.org/">
-    <div typeof="Book" th:each="book : ${books}">
-        <label>Name</label> <p property="name"  th:text="${book.getBookName()}"></p>
-        <label>Abstract</label> <p property="abstract" th:text="${book.getAbstracts()}"></p>
-        <label>Author name</label> <a  th:href="@{'/authors/{author}' (author=${book.getAuthorForSPARQL()})}">
-        <p property="author" th:text="${book.getAuthorName()}" ></p> </a>
-        <label>Genre</label> <p property="genre" th:text="${book.getGenreType()}"></p>
-        <label>Num pages</label> <p property="numberOfPages" th:text="${book.getNumPages()}"></p>
-        <label>Relase date</label> <p property="datePublished" th:text="${book.getRelaseDate()}"></p>
-
-    </div>
-    </div>
-</div>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

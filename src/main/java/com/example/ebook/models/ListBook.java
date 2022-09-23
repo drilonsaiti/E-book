@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class ListBook {
 
-    public String link;
     public String bookName;
     public String authorLabel;
+    public String genre;
 
-    public ListBook(String link, String bookName, String authorLabel) {
-        this.link = link;
+    public ListBook(String bookName, String authorLabel, String genre) {
         this.bookName = bookName;
         this.authorLabel = authorLabel;
+        this.genre = genre;
     }
 
     @Override
@@ -21,6 +21,10 @@ public class ListBook {
         ListBook that = (ListBook) o;
         return bookName.equals(that.bookName);
     }
+
+    public String authorLabel(){
+        return "by " + this.authorLabel;
+    }
     public String getAuthorForSPARQL(){
         return this.authorLabel.replaceAll(" ","_");
     }
@@ -28,6 +32,7 @@ public class ListBook {
     public String getNameForSPARQL(){
         return this.bookName.replaceAll(" ","_");
     }
+
 
     @Override
     public int hashCode() {

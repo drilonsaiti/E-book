@@ -15,6 +15,8 @@ public class ListBooksServiceImpl implements ListBooksServices {
     public List<ListBook> getBooks(){
         List<ListBook> listBookList = new ArrayList<>();
         try(QueryExecution qexec = QueryExecutionFactory.sparqlService("https://dbpedia.org/sparql",ListBooksSPARQL.query)) {
+            System.out.println(qexec.getQuery());
+
             ResultSet result = qexec.execSelect();
             while (result.hasNext()){
                 QuerySolution soln = result.nextSolution();
@@ -23,16 +25,17 @@ public class ListBooksServiceImpl implements ListBooksServices {
                     author = soln.get("?authorName").toString();
                     //author =  author.substring(0,author.length()-3);
                 }
-                String link = "";
-                if(soln.get("?genreName") != null){
-                    link = soln.get("?genreName").toString();
+                String genre = "";
+                if(soln.get("?genreType") != null){
+                    genre = soln.get("?genreType").toString();
                 }
                 String name = "";
                 if(soln.get("?bookName") != null) {
                     name = soln.get("?bookName").toString();
                     //name = name.substring(0,name.length()-3);
                 }
-                listBookList.add(new ListBook(link,name,author));
+
+                listBookList.add(new ListBook(name,author,genre));
             }
         }
         return listBookList;

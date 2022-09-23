@@ -51,6 +51,9 @@ public class BookDetails {
         BookDetails that = (BookDetails) o;
         return bookName.equals(that.bookName);
     }
+    public String getAuthorForSPARQL(){
+        return this.authorName.replaceAll(" ","_");
+    }
 
     @Override
     public int hashCode() {
