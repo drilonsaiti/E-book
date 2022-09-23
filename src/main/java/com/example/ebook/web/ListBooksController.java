@@ -5,7 +5,11 @@ import com.example.ebook.services.ListBooksServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +24,20 @@ public class ListBooksController {
 
     @GetMapping({"/","/books"})
     public String getBooks(Model model){
-        List<ListBook> books = this.booksServices.getBooks().stream().distinct().collect(Collectors.toList());
+        return findPagianted(null,1,model);
+    }
+    @GetMapping("/books/page/{pageNo}")
+    public String findPagianted(@RequestParam(required = false)String search, @PathVariable(value = "pageNo") int pageNo, Model model){
+        List<ListBook> books = new ArrayList<>();
+        Page<ListBook> page = null;
+        int pageSize = 20;
+        page = this.booksServices.findPagianted(pageNo,pageSize,search);
+        books = page.getContent();
 
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPages",page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("search", search);
         model.addAttribute("size",books.size());
         model.addAttribute("books",books);
 
