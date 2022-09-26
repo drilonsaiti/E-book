@@ -85,15 +85,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" >
                     <div class="col-md-6">
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body" >
                                 <p class="mb-4"> Books
                                 </p>
-                                <div th:each="book : ${books}"  typeof="CreativeWork">
-                                    <a class="card-link" th:href="@{'/book/{bookName}' (bookName=${book.getNameForSPARQL()})}">
-                                        <p class="mb-1" style="font-size: .77rem;" th:text="${book.getName()}" property="creator"></p>
+                                <div th:each="book : ${books}"  typeof="Book" >
+                                    <a class="card-link" typeof="CreativeWork" property="creator" th:href="@{'/book/{bookName}' (bookName=${book.getNameForSPARQL()})}">
+                                        <p  property="name" class="mb-1" style="font-size: .77rem;" th:text="${book.getName()}" ></p>
                                     </a>
                                     <hr>
                                 </div>

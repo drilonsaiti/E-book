@@ -52,8 +52,8 @@
                                 <p class="mb-0">Author name</p>
                             </div>
                             <div class="col-sm-9">
-                                <a  th:href="@{'/authors/{author}' (author=${book.getAuthorForSPARQL()})}">
-                                    <p class=" mb-0" property="author" th:text="${book.getAuthorName()}" ></p> </a>
+                                <a  property="author" typeof="Person" th:href="@{'/authors/{author}' (author=${book.getAuthorForSPARQL()})}">
+                                    <p class=" mb-0"  property="name" th:text="${book.getAuthorName()}" ></p> </a>
                             </div>
                         </div>
                         <hr>
