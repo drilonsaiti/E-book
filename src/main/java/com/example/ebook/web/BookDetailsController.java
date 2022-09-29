@@ -27,7 +27,7 @@ public class BookDetailsController {
         System.out.println(bookName);
         List<BookDetails> bookDetails = this.bookDetailsServices.getBookDetails(bookName).stream().distinct().collect(Collectors.toList());
         model.addAttribute("books",bookDetails);
-
+        model.addAttribute("namelink",bookDetails.get(0).getBookName());
         return "book-details";
     }
 }

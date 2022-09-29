@@ -40,7 +40,7 @@ public class AuthorDetailsController {
         List<AuthorOfBooks> authorOfBooks = this.authorOfBooksServices.getList(author).stream().distinct().toList();
         model.addAttribute("authors",detailsAuthorList);
         model.addAttribute("books",authorOfBooks);
-
+        model.addAttribute("authornamelink",detailsAuthorList.get(0).getName());
         return "author";
     }
 }
